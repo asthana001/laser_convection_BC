@@ -93,7 +93,6 @@ Foam::laserConvectionFvPatchField<Type>::laserConvectionFvPatchField
     startAngle_(ptf.startAngle_),
     omega_(ptf.omega_),
     nCycles_(ptf.nCycles_),
-    //spiralcoeff_(ptf.spiralcoeff_),
     lMPoints_(ptf.lMPoints_),
     timeAcc_(ptf.timeAcc_),
     endPoint_(ptf.endPoint_),
@@ -147,7 +146,6 @@ Foam::laserConvectionFvPatchField<Type>::laserConvectionFvPatchField
     startAngle_(0,scalar(0)),
     omega_(0,scalar(0)),
     nCycles_(0,scalar(0)),
-    //spiralcoeff_(0,scalar(0)),
     lMPoints_(0,pointField(0,point(0,0,0))),
     lMSpeed_(0,scalar(0)),
     timeAcc_(0,scalarList(0,scalar(0))),
@@ -309,7 +307,6 @@ Foam::laserConvectionFvPatchField<Type>::laserConvectionFvPatchField
             startMotion_.append(0);
             motionCenters_.append(point(0,0,0));
             omega_.append(0);
-            //spiralcoeff_.append(0);
             lMPoints_.append(pointField(0));
             lMSpeed_.append(0);
             timeAcc_.append(scalarField(0));
@@ -481,65 +478,6 @@ Foam::laserConvectionFvPatchField<Type>::laserConvectionFvPatchField
                             }
                         }
 
-                        // //- Spiral motion
-                        // if (motionMode_[nSources_-1] == "spiral")
-                        // {
-                        //     Info<< "    ++ Spiral mode for motion is used"
-                        //         << endl;
-
-                        //     motionCenters_[nSources_-1] =
-                        //         motionDict.lookup("center");
-
-                        //     nCycles_[nSources_-1] = motionDict.lookupOrDefault
-                        //         (
-                        //             "nCycles",
-                        //             scalar(0)
-                        //         );
-
-                        //     omega_[nSources_-1] =
-                        //         readScalar(motionDict.lookup("omega"));
-
-                        //     spiralcoeff_[nSources_-1] =
-                        //         readScalar(motionDict.lookup("spiralcoeff"));
-
-                        //     endPoint_[nSources_-1] = false;
-
-                        //     //- TH::151016 Take start angle into account
-
-                        //     //- Vector between center of rotation and spot
-                        //     const vector tmp =
-                        //         sourceCenters_[nSources_-1]
-                        //       - motionCenters_[nSources_-1];
-
-                        //     //- Distance between center of rotation and spot
-                        //     const scalar delta = mag(tmp);
-
-                        //     //- Dx and dy
-                        //     const scalar dxStart =
-                        //         sourceCenters_[nSources_-1].x()
-                        //       - motionCenters_[nSources_-1].x();
-
-                        //     const scalar dyStart =
-                        //         sourceCenters_[nSources_-1].y()
-                        //       - motionCenters_[nSources_-1].y();
-
-                        //     //- First and second quadrant dy positive
-                        //     //  third and fourth quadrant dy negative
-
-                        //     //- First and second
-                        //     if (dyStart >= 0)
-                        //     {
-                        //         startAngle_[nSources_-1] =
-                        //             acos(dxStart / delta);
-                        //     }
-
-                        //     else
-                        //     {
-                        //         startAngle_[nSources_-1] =
-                        //           2*M_PI - acos(dxStart / delta);
-                        //     }
-                        // }
-
                         //- Linear motion
                         else if (motionMode_[nSources_-1] == "linear")
                         {
@@ -693,7 +631,6 @@ Foam::laserConvectionFvPatchField<Type>::laserConvectionFvPatchField
     startAngle_(ptf.startAngle_),
     omega_(ptf.omega_),
     nCycles_(ptf.nCycles_),
-    //spiralcoeff_(ptf.spiralcoeff_),
     lMPoints_(ptf.lMPoints_),
     timeAcc_(ptf.timeAcc_),
     endPoint_(ptf.endPoint_),
@@ -846,39 +783,6 @@ void Foam::laserConvectionFvPatchField<Type>::updateSpotCenter()
                     const vector tmp = sourceCenters_[m] - motionCenters_[m];
 
                     //- Distance between two centers
-                    const scalar delta = mag(tmp);
-
-                    //- dx & dy
-                    const scalar dx = cos(angleRad+startAngle_[m])*delta;
-                    const scalar dy = sin(angleRad+startAngle_[m])*delta;
-
-                    //- Update center coordinates
-                    sourceCenters_[m][0] = motionCenters_[m].x()+dx;
-                    sourceCenters_[m][1] = motionCenters_[m].y()+dy;
-                }
-
-                //- Spiral motion in x-y plane
-                if (motionMode_[m] == "spiral")
-                {
-                    const scalar angleRad = (t-startMotion_[m])*omega_[m];
-
-                    //- Check if nCycles already done
-
-                        //- Radian for nCyles 2pi = 1 cycle
-                        const scalar radians = nCycles_[m] * 2 * M_PI;
-
-                        //- Set power to zero and bool for end point reached
-                        if (angleRad >= radians && radians > scalar(0))
-                        {
-                            endPoint_[m] = true;
-                            power_[m] = 0;
-                        }
-
-                    //- Vector between two centers
-                    const vector tmp = sourceCenters_[m] - motionCenters_[m];
-
-                    //- Distance between two centers
-                    //const scalar delta = mag(tmp) + spiralcoeff_[m] ;
                     const scalar delta = mag(tmp);
 
                     //- dx & dy
