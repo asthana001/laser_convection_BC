@@ -10,3 +10,5 @@ Please refer to the <a href = "https://github.com/asthana001/laser_convection_BC
 
 ## Compatible OpenFOAM Versions
 I recommend using <a href="https://www.cfdsupport.com/openfoam-in-box.html">OpenFOAM-in-Box</a> to run this code. The code works with <a href="https://www.cfdsupport.com/openfoam-in-box.html">OpenFOAM-in-Box-20.09</a> and <a href="https://drive.google.com/file/d/1gzK8ipaC-be_dvljckus6uFizazkO1eU/view?usp=sharing">OpenFOAM-in-Box-18.10</a>.
+
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
