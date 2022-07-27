@@ -1,6 +1,6 @@
 # Laser Convection Boundary Condition
 
-This code was developed during my Summer Internship at <a href="https://materialsmodellinggroup.github.io/">Materials Modelling Group</a>, <a href="https://iisc.ac.in/">IISc Bangalore</a>.
+This code was developed as a part of my Summer Internship at <a href="https://materialsmodellinggroup.github.io/">Materials Modelling Group</a>, <a href="https://iisc.ac.in/">IISc Bangalore</a>.
 
 ## Introduction to boundary condition
 Boundary condition for a laser source boundary based on the Gaussian distribution function with additional convective heat transfer, based on <a href="https://bitbucket.org/shor-ty/laserconvectionbc/src">laserConvectionBC by Tobias Holzmann</a>
