@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "marangoniGradientConditionFvPatchVectorField.C": "cpp",
+        "marangoniGradientConditionFvPatchVectorField.H": "cpp"
+    }
+}
